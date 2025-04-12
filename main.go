@@ -14,7 +14,7 @@ func main() {
 		scanner.Scan()
 		input := scanner.Text()
 		cleaned := cleanInput(input)
-		fmt.Printf("Your command was: '%s' \n", cleaned[0])
+		fmt.Printf("Your command was: %s \n", cleaned[0])
 	}
 }
 
