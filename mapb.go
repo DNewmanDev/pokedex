@@ -3,7 +3,6 @@ package main
 import (
 	"encoding/json"
 	"fmt"
-	"net/http"
 )
 
 func commandMapb(cfg *Config) error {
@@ -11,24 +10,22 @@ func commandMapb(cfg *Config) error {
 		fmt.Println("you're on the first page")
 		return nil
 	}
-	resp, err := http.Get(cfg.Previous)
+	resp, err := cfg.Client.GetRequest(cfg.Previous) //make request
 	if err != nil {
 		return err
 	}
-	defer resp.Body.Close()
+	//defer now happens in the get request
 
-	var locationsresp LocationAreaResponse
-	if err := json.NewDecoder(resp.Body).Decode(&locationsresp); err != nil {
+	var locationsresp LocationAreaResponse     //init json response container
+	err = json.Unmarshal(resp, &locationsresp) // unmarshals the response into locationsresponse form
+	if err != nil {
 		return err
 	}
-
-	cfg.Next = locationsresp.Next
+	cfg.Next = locationsresp.Next //update the URLs of the config struct
 	cfg.Previous = locationsresp.Previous
 
-	for _, result := range locationsresp.Results {
-		fmt.Println(result.Name)
+	for _, result := range locationsresp.Results { //print da reesults
+		fmt.Println("---", result.Name, "---")
 	}
-
 	return nil
-
 }

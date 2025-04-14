@@ -3,6 +3,7 @@ package main
 type Config struct {
 	Next     string
 	Previous string
+	Client   *Client
 }
 
 type LocationAreaResponse struct {

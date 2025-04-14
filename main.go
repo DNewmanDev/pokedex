@@ -4,11 +4,14 @@ import (
 	"bufio"
 	"fmt"
 	"os"
+	"time"
 )
 
 func main() {
-	//pokeClient := pokeapi.NewClient(5*time.second, time.Minute*5)
-	cfg := &Config{}                      //initializing the blank configuration
+	client := NewClient(5 * time.Minute) //creates client for HTTP requests, lasts 5 minutes
+	cfg := &Config{
+		Client: client,
+	} //initializing the blank configuration
 	scanner := bufio.NewScanner(os.Stdin) //object that listens for input
 
 	for i := 0; ; i++ {
