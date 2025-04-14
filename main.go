@@ -2,36 +2,35 @@ package main
 
 import (
 	"bufio"
+	"encoding/json"
 	"fmt"
+	"net/http"
 	"os"
 	"strings"
-
-	pokego "github.com/JoshGuarino/PokeGo/pkg"
 )
 
 func main() {
-	scanner := bufio.NewScanner(os.Stdin)
-	client := pokego.NewClient()
+	cfg := &Config{}                      //initializing the blank configuration
+	scanner := bufio.NewScanner(os.Stdin) //object that listens for input
+
 	for i := 0; ; i++ {
 		fmt.Print("Pokedex > ")
-		scanner.Scan()
-		input := scanner.Text()
-		if len(input) == 0 {
+		scanner.Scan()          //wait for input
+		input := scanner.Text() //register input
+		if len(input) == 0 {    //if they send nothing, do nothing
 			continue
 		}
-		cleaned := cleanInput(input)
-		locationsAreaList, err := client.Locations.GetLocationAreaList(20, 0)
-		if err != nil {
-			fmt.Println(err)
+		cleaned := cleanInput(input) //Clean the input
+
+		command, ok := pokecommands[cleaned[0]] //pull the command
+		if !ok {                                //iff the command isn't in the list, print not found
+			fmt.Println("Command not found")
+			continue
+
 		}
-		if cmd, exists := pokecommands[cleaned[0]]; exists {
-			err := cmd.callback()
-			if err != nil {
-				fmt.Println(err)
-			}
-		} else {
-			fmt.Println(locationsAreaList)
-			fmt.Println("unknown command")
+		err := command.callback(cfg) //check the callback function and for error
+		if err != nil {
+			fmt.Println("Error: ", err)
 		}
 
 	}
@@ -47,20 +46,34 @@ func cleanInput(input string) []string {
 	return trimmedInput
 }
 
+type commandCallback func(cfg *Config) error
 type cliCommand struct {
 	name        string
 	description string
-	callback    func() error
+	callback    commandCallback
+}
+type Config struct {
+	Next     string
+	Previous string
+}
+type LocationAreaResponse struct {
+	Count    int    `json:"count"`
+	Next     string `json:"next"`
+	Previous string `json:"previous"`
+	Results  []struct {
+		Name string `json:"name"`
+		URL  string `json:"url"`
+	} `json:"results"`
 }
 
 var pokecommands map[string]cliCommand
 
-func commandExit() error {
+func commandExit(cfg *Config) error {
 	fmt.Println("Closing the Pokedex... Goodbye!")
 	os.Exit(0)
 	return nil
 }
-func commandHelp() error {
+func commandHelp(cfg *Config) error {
 	fmt.Println("Welcome to the Pokedex!")
 	fmt.Println("Usage:")
 	fmt.Println()
@@ -70,7 +83,58 @@ func commandHelp() error {
 	}
 	return nil
 }
+func commandMap(cfg *Config) error {
 
+	url := "https://pokeapi.co/api/v2/location-area" //default API url
+	if cfg.Next != "" {
+		url = cfg.Next //if the next URL exists, set it
+	}
+
+	resp, err := http.Get(url) //make request
+	if err != nil {
+		return err
+	}
+	defer resp.Body.Close() // make sure the request is closed at finishing
+
+	var locationsresp LocationAreaResponse                                    //initialize a variable struct to hold the json responses in
+	if err := json.NewDecoder(resp.Body).Decode(&locationsresp); err != nil { //decode the json and throw any errors if they're there
+		return err
+	}
+	cfg.Next = locationsresp.Next
+	cfg.Previous = locationsresp.Previous
+
+	for _, result := range locationsresp.Results {
+		fmt.Println(result.Name)
+	}
+	return nil
+}
+
+func commandMapb(cfg *Config) error {
+	if cfg.Previous == "" {
+		fmt.Println("you're on the first page")
+		return nil
+	}
+	resp, err := http.Get(cfg.Previous)
+	if err != nil {
+		return err
+	}
+	defer resp.Body.Close()
+
+	var locationsresp LocationAreaResponse
+	if err := json.NewDecoder(resp.Body).Decode(&locationsresp); err != nil {
+		return err
+	}
+
+	cfg.Next = locationsresp.Next
+	cfg.Previous = locationsresp.Previous
+
+	for _, result := range locationsresp.Results {
+		fmt.Println(result.Name)
+	}
+
+	return nil
+
+}
 func init() {
 
 	pokecommands = map[string]cliCommand{
@@ -83,6 +147,16 @@ func init() {
 			name:        "help",
 			description: "Displays a help message",
 			callback:    commandHelp,
+		},
+		"map": {
+			name:        "map",
+			description: "Displays 20 locations",
+			callback:    commandMap,
+		},
+		"mapb": {
+			name:        "mapb",
+			description: "Displays previous 20 locations",
+			callback:    commandMapb,
 		},
 	}
 }
