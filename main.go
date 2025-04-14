@@ -5,10 +5,13 @@ import (
 	"fmt"
 	"os"
 	"strings"
+
+	pokego "github.com/JoshGuarino/PokeGo/pkg"
 )
 
 func main() {
 	scanner := bufio.NewScanner(os.Stdin)
+	client := pokego.NewClient()
 	for i := 0; ; i++ {
 		fmt.Print("Pokedex > ")
 		scanner.Scan()
@@ -17,13 +20,17 @@ func main() {
 			continue
 		}
 		cleaned := cleanInput(input)
-
+		locationsAreaList, err := client.Locations.GetLocationAreaList(20, 0)
+		if err != nil {
+			fmt.Println(err)
+		}
 		if cmd, exists := pokecommands[cleaned[0]]; exists {
 			err := cmd.callback()
 			if err != nil {
 				fmt.Println(err)
 			}
 		} else {
+			fmt.Println(locationsAreaList)
 			fmt.Println("unknown command")
 		}
 
