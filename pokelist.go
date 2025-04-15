@@ -10,8 +10,5 @@ func commandList(cfg *Config, parameter string) error {
 
 	}
 
-	// for _, result := cfg.Pokedex.pokedex{
-	// 	fmt.Println(result.)
-	// }
 	return nil
 }
