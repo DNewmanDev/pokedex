@@ -17,13 +17,13 @@ func main() {
 	scanner := bufio.NewScanner(os.Stdin) //object that listens for input
 
 	// Check the Pokedex for caught Pokémon: THIS IS FOR THE LIST FUNCTIONcatch gya
-	fmt.Println("Caught Pokémon in Pokedex:")
-	for name, _ := range cfg.Pokedex.pokedex {
-		// fmt.Printf("%s: %+v\n", name, info)
-		fmt.Println(name)
-	}
+	// fmt.Println("Caught Pokémon in Pokedex:")
+	// for name, _ := range cfg.Pokedex.pokedex {
+	// 	// fmt.Printf("%s: %+v\n", name, info)
+	// 	fmt.Println(name)
+	// }
 	for i := 0; ; i++ {
-		fmt.Print("Pokedex > \n")
+		fmt.Print("Pokedex > ")
 		scanner.Scan()          //wait for input
 		input := scanner.Text() //register input
 		parameter := ""
