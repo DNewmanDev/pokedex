@@ -4,6 +4,7 @@ type Config struct {
 	Next     string
 	Previous string
 	Client   *Client
+	Pokedex  *Pokedex
 }
 
 type LocationAreaResponse struct {

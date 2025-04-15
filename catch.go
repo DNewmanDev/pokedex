@@ -20,12 +20,13 @@ func commandCatch(cfg *Config, parameter string) error {
 		return err
 	}
 	randomseed := rand.Intn(pokeinfo.BaseExperience)
-	fmt.Println("Throwing a Pokeball at " + pokeinfo.Name + " ...")
-	fmt.Println(randomseed)
-	fmt.Println(pokeinfo.BaseExperience / 2)
+	fmt.Println("Throwing a Pokeball at " + pokeinfo.Name + "...")
+
 	if randomseed > pokeinfo.BaseExperience/2+pokeinfo.BaseExperience/6 {
 		print(pokeinfo.Name + " was caught!\n")
 		//add to map
+		cfg.Pokedex.Add(pokeinfo.Name, pokeinfo)
+
 	} else {
 		fmt.Println(pokeinfo.Name + " got away!")
 	}

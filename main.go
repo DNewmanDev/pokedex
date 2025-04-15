@@ -10,12 +10,20 @@ import (
 func main() {
 	client := NewClient(5 * time.Minute) //creates client for HTTP requests, lasts 5 minutes
 	cfg := &Config{
-		Client: client,
+		Client:  client,
+		Pokedex: NewPokedex(),
 	} //initializing the blank configuration
+
 	scanner := bufio.NewScanner(os.Stdin) //object that listens for input
 
+	// Check the Pokedex for caught Pokémon: THIS IS FOR THE LIST FUNCTIONcatch gya
+	fmt.Println("Caught Pokémon in Pokedex:")
+	for name, _ := range cfg.Pokedex.pokedex {
+		// fmt.Printf("%s: %+v\n", name, info)
+		fmt.Println(name)
+	}
 	for i := 0; ; i++ {
-		fmt.Print("Pokedex > ")
+		fmt.Print("Pokedex > \n")
 		scanner.Scan()          //wait for input
 		input := scanner.Text() //register input
 		parameter := ""
