@@ -1,7 +1,6 @@
 package main
 
 import (
-	"fmt"
 	"io"
 	"net/http"
 	"time"
@@ -27,7 +26,6 @@ func NewClient(cacheInterval time.Duration) *Client { //initializes new client s
 // ttime to add the method onto the client that will perform the get request, although am I also doing this in main?
 func (c *Client) GetRequest(url string) ([]byte, error) { //adds the method to the client struct, takes a url request and returns a slice of bytes and error
 	if cachedData, ok := c.cache.Get(url); ok { //attempt to set cachedData to a getURL method, if it's ok:
-		fmt.Println("Cache accessed for URL: ", url)
 		return cachedData, nil
 
 	}
