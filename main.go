@@ -18,17 +18,22 @@ func main() {
 		fmt.Print("Pokedex > ")
 		scanner.Scan()          //wait for input
 		input := scanner.Text() //register input
-		if len(input) == 0 {    //if they send nothing, do nothing
+		parameter := ""
+		if len(input) == 0 { //if they send nothing, do nothing
 			continue
 		}
 		cleaned := cleanInput(input) //Clean the input
-
+		if len(cleaned) > 1 {
+			parameter = cleaned[1]
+		}
 		command, ok := pokecommands[cleaned[0]] //pull the command
 		if !ok {                                //iff the command isn't in the list, print not found
 			fmt.Println("Command not found")
 			continue
 		}
-		err := command.callback(cfg) //check the callback function and for error
+		//if command is explore pull cleaned [0] AND cleaned[1]
+
+		err := command.callback(cfg, parameter) //check the callback function and for error
 		if err != nil {
 			fmt.Println("Error: ", err)
 		}

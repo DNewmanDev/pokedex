@@ -11,7 +11,7 @@ func cleanInput(input string) []string {
 	return trimmedInput
 }
 
-type commandCallback func(cfg *Config) error
+type commandCallback func(cfg *Config, parameter string) error
 type cliCommand struct {
 	name        string
 	description string

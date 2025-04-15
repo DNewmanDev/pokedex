@@ -5,13 +5,13 @@ import (
 	"fmt"
 )
 
-func commandExplore(cfg *Config) error {
+func commandExplore(cfg *Config, parameter string) error {
 	//somehow the user input has to get here for
 	//us to know where to explore
 	//for now while building exp functionality
 	//will use dummy url
 
-	url := "https://pokeapi.co/api/v2/location-area/mt-coronet-6f"
+	url := "https://pokeapi.co/api/v2/location-area/" + parameter
 	//check later to see if I need to add
 	//extra fields to config
 
@@ -28,7 +28,7 @@ func commandExplore(cfg *Config) error {
 	}
 	fmt.Println("Here's ya pokemon")
 	for _, result := range exploreresp.PokemonEncounters {
-		fmt.Println(result.Pokemon.Name)
+		fmt.Println("-" + result.Pokemon.Name)
 	}
 
 	return nil

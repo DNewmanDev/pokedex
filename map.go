@@ -5,7 +5,7 @@ import (
 	"fmt"
 )
 
-func commandMap(cfg *Config) error {
+func commandMap(cfg *Config, parameter string) error {
 
 	url := "https://pokeapi.co/api/v2/location-area" //default API url
 	if cfg.Next != "" {
