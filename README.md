@@ -11,6 +11,16 @@ This sophisticated command-line tool integrates with the PokéAPI, featuring int
 - **Concurrent Operations**: Thread-safe operations with goroutine-based cache management
 - **Pokémon Management**: Bask in the glory once more as you catch, inspect, and manage your Pokémon collection
 
+## 🎯 Skills Demonstrated
+
+- **HTTP Client Development**: Custom clients with timeout management and error handling
+- **Concurrent Programming**: Goroutines, mutexes, and thread-safe data structures
+- **Caching Strategies**: TTL-based cache with automatic cleanup and memory management
+- **API Integration**: Complex JSON parsing and HTTP response handling
+- **CLI Design**: Interactive command-line interfaces with state management
+- **Testing**: Unit test coverage for critical components
+- **Memory Management**: Preventing memory leaks with proper resource cleanup
+
 ## 🏗️ Technical Architecture
 
 ### HTTP Client Design
@@ -85,15 +95,6 @@ type LocationAreasResponse struct {
 }
 ```
 
-## 🎯 Skills Demonstrated
-
-- **HTTP Client Development**: Custom clients with timeout management and error handling
-- **Concurrent Programming**: Goroutines, mutexes, and thread-safe data structures
-- **Caching Strategies**: TTL-based cache with automatic cleanup and memory management
-- **API Integration**: Complex JSON parsing and HTTP response handling
-- **CLI Design**: Interactive command-line interfaces with state management
-- **Testing**: Unit test coverage for critical components
-- **Memory Management**: Preventing memory leaks with proper resource cleanup
 
 ## 🚀 Getting Started
 
@@ -104,7 +105,7 @@ type LocationAreasResponse struct {
 ### Installation & Running
 ```bash
 # Clone and build
-git clone https://github.com/DonJNewman/pokedex.git
+git clone https://github.com/DNewmanDev/pokedex.git
 cd pokedex
 go build -o pokedex
 
