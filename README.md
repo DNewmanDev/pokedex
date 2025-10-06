@@ -131,9 +131,9 @@ go build -o pokedex
  
 <img width="843" height="809" alt="dex1" src="https://github.com/user-attachments/assets/af4cbccd-555c-4801-8e85-ce0638dc8ca4" />
 <img width="900" height="832" alt="dex2" src="https://github.com/user-attachments/assets/5bc55ff7-8d7f-4702-b78e-285ef3c55a0a" />
-<img width="765" height="801" alt="dex3" src="https://github.com/user-attachments/assets/45e94ed5-9aa3-4691-b24d-d0de563f10fd" />
-<img width="698" height="649" alt="dex4" src="https://github.com/user-attachments/assets/bd8720cb-dafc-446f-9529-fd28449c0037" />
-<img width="1041" height="850" alt="dexend" src="https://github.com/user-attachments/assets/9bbbdc01-2415-446b-b942-8fd695f4706a" />
+<img width="820" height="801" alt="dex3" src="https://github.com/user-attachments/assets/45e94ed5-9aa3-4691-b24d-d0de563f10fd" />
+<img width="820" height="649" alt="dex4" src="https://github.com/user-attachments/assets/bd8720cb-dafc-446f-9529-fd28449c0037" />
+<img width="920" height="850" alt="dexend" src="https://github.com/user-attachments/assets/9bbbdc01-2415-446b-b942-8fd695f4706a" />
 
 
 ## 🏗️ Project Structure
