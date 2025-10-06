@@ -129,9 +129,9 @@ go build -o pokedex
 
 ## 🔍 Example Usage
  
-<img width="843" height="1918" alt="dex1" src="https://github.com/user-attachments/assets/af4cbccd-555c-4801-8e85-ce0638dc8ca4" />
-<img width="900" height="1963" alt="dex2" src="https://github.com/user-attachments/assets/5bc55ff7-8d7f-4702-b78e-285ef3c55a0a" />
-<img width="676" height="1602" alt="dex3" src="https://github.com/user-attachments/assets/45e94ed5-9aa3-4691-b24d-d0de563f10fd" />
+<img width="843" height="809" alt="dex1" src="https://github.com/user-attachments/assets/af4cbccd-555c-4801-8e85-ce0638dc8ca4" />
+<img width="900" height="832" alt="dex2" src="https://github.com/user-attachments/assets/5bc55ff7-8d7f-4702-b78e-285ef3c55a0a" />
+<img width="676" height="801" alt="dex3" src="https://github.com/user-attachments/assets/45e94ed5-9aa3-4691-b24d-d0de563f10fd" />
 
 
 
